@@ -2,7 +2,7 @@
 
 
 Travis (.com)  branch:
-[![Build Status](https://travis-ci.com/githubfoam/pdns_sandbox.svg?branch=dev)](https://travis-ci.com/githubfoam/pdns_sandbox) 
+[![Build Status](https://travis-ci.com/githubfoam/pdns_sandbox.svg?branch=main)](https://travis-ci.com/githubfoam/pdns_sandbox) 
 
 ~~~~
 PowerDNS Recursor
