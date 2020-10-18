@@ -1,0 +1,46 @@
+---
+sudo: required
+dist: bionic
+
+notifications:
+  slack:
+    on_failure: always
+
+
+fleet_script_tasks : &fleet_script_tasks
+      script:
+        - python --version
+fleet_install_tasks : &fleet_install_tasks
+      install:
+        - pip install -r requirements.txt
+
+
+matrix:
+  fast_finish: true
+  include:
+
+    # https://github.com/PowerDNS/pdns/blob/master/pdns/recursordist/README.md
+    - name: "build PowerDNS Recursor w homebrew on macOS 10.15.7 osx xcode12.2"
+      os: osx
+      osx_image:
+        - xcode12.2 #macOS 10.15.7
+      addons:
+        homebrew:
+          packages:
+          - boost
+          - lua 
+          - pkg-config
+          - ragel 
+          - openssl 
+          update: true
+      language: shell
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - python --version
+        - pip install -r requirements.txt
+      script:
+      - git clone https://github.com/PowerDNS/pdns
+      after_success:
+        - deactivate
